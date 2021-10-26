@@ -1,22 +1,22 @@
-const {isValidYear, validTags} = require("../helper/checks")
+const {isYearValid, createValidTags, isParamValid} = require("../helper/checks")
 
 exports.sanitize = (req, res, next) => {
 	const {start_year, end_year, tags} = req.query
 	const {countryName} = req.params
 
-	let cleanedTags = validTags(tags)
-	if (isValidYear(start_year) && isValidYear(end_year) && countryName !== undefined && countryName.length > 0) {
+	req.query.tags = createValidTags(tags)
+	if (isYearValid(start_year) && isYearValid(end_year) && isParamValid(countryName)) {
 		return next();
 	}
 	else {
 		let errorVars = []
-		if (!isValidYear(start_year)) {
+		if (!isYearValid(start_year)) {
 			errorVars.push("start_year")
 		}
-		if (!isValidYear(end_year)) {
+		if (!isYearValid(end_year)) {
 			errorVars.push("end_year")
 		}
-		if (countryName === undefined || countryName === null || countryName.length === 0) {
+		if (!isParamValid(countryName)) {
 			errorVars.push("countryName")
 		}
 

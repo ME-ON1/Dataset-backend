@@ -1,4 +1,5 @@
-exports.isValidYear = (year) => {
+
+exports.isYearValid = (year) => {
 	// check if year is number , whole number and inclusive of 1990 to 2014
 	if (year === null || year === undefined) {
 		return false;
@@ -12,7 +13,7 @@ exports.isValidYear = (year) => {
 	return true;
 }
 
-exports.validTags = (tags) => {
+exports.createValidTags = (tags) => {
 	let cleanedTagArr = []
 	if (tags === undefined || tags === null) {
 		return cleanedTagArr
@@ -20,8 +21,20 @@ exports.validTags = (tags) => {
 	let tagArr = tags.split(",")
 	for (let tagToken of tagArr) {
 		if (tagToken !== undefined && tagToken.length !== 0 && isNaN(tagToken)) {
-			cleanedTagArr.push(tagToken)
+			cleanedTagArr.push(tagToken.toUpperCase())
 		}
 	}
 	return cleanedTagArr
+}
+
+exports.isParamValid = (countryName) => {
+	if (countryName === undefined || countryName == null) {
+		return false;
+	}
+
+	if (countryName.length > 0) {
+		return true
+	}
+
+	return false;
 }
