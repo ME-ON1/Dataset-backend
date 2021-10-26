@@ -17,6 +17,7 @@ exports.CountriesRouteHdl = async (req, res, next) => {
 		return res.status(200).json({data: returnRes, status: 200})
 	}
 	catch (err) {
+		console.error(err)
 		return res.status(500).json({error: "Internal Server Error"})
 	}
 }
@@ -61,8 +62,8 @@ exports.TemporalQueryRouteHdl = async (req, res, next) => {
 			return res.status(200).json({data: returnData, status: 200})
 		}
 		catch (err) {
+			console.error(err)
 			return res.status(500).json({error: "Internal Server Error"})
-			throw new Error(err)
 		}
 	}
 }
