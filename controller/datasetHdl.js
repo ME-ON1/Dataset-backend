@@ -29,9 +29,6 @@ exports.TemporalQueryRouteHdl = async (req, res, next) => {
 	let cleanedTags = validTags(tags)
 	// appr checks for validation of params and query values
 	const where_clause = {
-		country_or_area: {
-			[Op.eq]: countryName
-		},
 		[Op.and]: [
 			{
 				country_or_area: countryName

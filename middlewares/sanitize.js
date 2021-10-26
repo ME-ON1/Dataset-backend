@@ -6,7 +6,7 @@ exports.sanitize = (req, res, next) => {
 
 	let cleanedTags = validTags(tags)
 	if (isValidYear(start_year) && isValidYear(end_year) && countryName !== undefined && countryName.length > 0) {
-		next();
+		return next();
 	}
 	else {
 		let errorVars = []
