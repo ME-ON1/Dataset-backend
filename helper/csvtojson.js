@@ -36,6 +36,7 @@ exports.to_Json = async (csv_url) => {
 				json_data.push(obj)
 			}
 		})
+		json_data.shift()
 		return json_data
 	} catch (err) {
 		throw new Error("Something happened while converting csv to json seed" + err)
