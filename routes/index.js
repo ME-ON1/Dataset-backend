@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get("/countries", controllers.CountriesRouteHdl)
-router.get("/country/:countryName", sanitize, controllers.TemporalQueryRouteHdl)
+router.get("/country/:countryName?", sanitize, controllers.TemporalQueryRouteHdl)
 router.get("/openapi")
 
 module.exports = router;

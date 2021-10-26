@@ -1,11 +1,12 @@
-const {isYearValid, createValidTags, isParamValid} = require("../helper/checks")
+const {isYearValid, createValidTags, isParamValid, whichVarNotPresent} = require("../helper/checks")
 
 exports.sanitize = (req, res, next) => {
 	const {start_year, end_year, tags} = req.query
 	const {countryName} = req.params
 
-	req.query.tags = createValidTags(tags)
-	if (isYearValid(start_year) && isYearValid(end_year) && isParamValid(countryName)) {
+
+	if (isYearValid(start_year) && isYearValid(end_year) && isParamValid(countryName) && tags !== undefined && tags !== null) {
+		req.query.tags = createValidTags(tags)
 		return next();
 	}
 	else {
@@ -18,6 +19,9 @@ exports.sanitize = (req, res, next) => {
 		}
 		if (!isParamValid(countryName)) {
 			errorVars.push("countryName")
+		}
+		if (tags == undefined || tags == null) {
+			errorVars.push("tags")
 		}
 
 		return res.status(500).json({error: "query and params arent valid values", status: 500, possible_error_var: errorVars})
