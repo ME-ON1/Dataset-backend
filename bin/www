@@ -30,16 +30,6 @@ server.listen(port, async () => {
 	console.log("server started !! ")
 	await models.sequelize.authenticate();
 	console.log("DB connected")
-	/*	const a = await models.MyKaggle.findAll({
-		       attributes: [
-			       'id',
-			       'country_or_area',
-			       ["2014", 'end_year'],
-			       'category'
-		       ],
-		       group: ['country_or_area', 'tag']
-	       })
-	       console.log(a) */
 });
 server.on('error', onError);
 server.on('listening', onListening);
