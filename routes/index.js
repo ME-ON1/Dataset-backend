@@ -13,6 +13,5 @@ router.get('/', function (req, res, next) {
 router.get("/countries", controllers.CountriesRouteHdl)
 router.get("/country/:countryName?", sanitize, controllers.TemporalQueryRouteHdl)
 
-// router.get("/openapi", swaggerUi.serve, swaggerUi.setup(specs))
 
 module.exports = router;
