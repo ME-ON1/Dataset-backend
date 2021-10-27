@@ -5,8 +5,6 @@ var router = express.Router();
 var controllers = require("../controller")
 var {sanitize} = require("../middlewares/sanitize")
 
-const specs = swaggerJsdoc(options)
-
 /* GET home page. */
 router.get('/', function (req, res, next) {
 	res.render('index', {title: 'Express'});
