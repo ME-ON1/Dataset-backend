@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var swaggerJsdoc = require("swagger-jsdoc")
-var swaggerUi = require("swagger-ui-express");
 
 
 var controllers = require("../controller")
 var {sanitize} = require("../middlewares/sanitize")
-var {options} = require("../helper/APIdocs")
 
 const specs = swaggerJsdoc(options)
 
@@ -18,6 +15,6 @@ router.get('/', function (req, res, next) {
 router.get("/countries", controllers.CountriesRouteHdl)
 router.get("/country/:countryName?", sanitize, controllers.TemporalQueryRouteHdl)
 
-router.get("/openapi", swaggerUi.serve, swaggerUi.setup(specs))
+// router.get("/openapi", swaggerUi.serve, swaggerUi.setup(specs))
 
 module.exports = router;
