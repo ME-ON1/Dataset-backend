@@ -1,6 +1,6 @@
 const MyKaggle = require("../models").MyKaggle
 const {Op, Sequelize} = require("sequelize")
-
+const client = require("./caching")
 
 exports.CountriesRouteHdl = async (req, res, next) => {
 	try {
@@ -26,6 +26,7 @@ exports.TemporalQueryRouteHdl = async (req, res, next) => {
 	const {start_year, end_year, tags} = req.query
 	const {countryName} = req.params
 
+	const cache_key = `${start_year}:${end_year}:${countryName}:${tags}`
 
 	// appr checks for validation of params and query values
 	const where_clause = {
@@ -49,17 +50,31 @@ exports.TemporalQueryRouteHdl = async (req, res, next) => {
 			tag: Sequelize.where(Sequelize.fn("upper", Sequelize.col("tag")), Op.in, new Array(tags))
 		}
 		try {
-			const returnData = await MyKaggle.findAll({
-				attributes: [
-					'id',
-					'country_or_area',
-					'value',
-					'category',
-					'year',
-				],
-				where: where_clause
+			client.get(cache_key, async (err, data) => {
+				if (err) {
+					console.log(err, "Getting error in reteriving data from cache");
+				}
+
+				if (data) {
+					return res.status(200).json({data: JSON.parse(data), status: 200})
+				}
+				else {
+					const returnData = await MyKaggle.findAll({
+						attributes: [
+							'id',
+							'country_or_area',
+							'value',
+							'category',
+							'year',
+						],
+						where: where_clause
+					})
+					// copy to store json string and send right value to user
+					const shallow_copy_return_data = returnData
+					client.setex(cache_key, 1000, JSON.stringify(shallow_copy_return_data))
+					return res.status(200).json({data: returnData, status: 200})
+				}
 			})
-			return res.status(200).json({data: returnData, status: 200})
 		}
 		catch (err) {
 			console.error(err)
