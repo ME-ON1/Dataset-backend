@@ -1,9 +1,7 @@
 'use strict';
 const path = require("path")
 const relative_csv_url = path.join(process.cwd(), "/greenhouse_gas_inventory_data_data.csv")
-const {CTRY_MAP} = require("../helper/constVal")
 const {to_Json} = require(path.join(process.cwd(), "/helper/csvtojson"));
-const {relative} = require("path");
 
 
 module.exports = {

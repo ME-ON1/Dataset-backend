@@ -1,0 +1,221 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Kaggle dataset backend",
+		"description": "Made with Nodejs express framework ana Sequelize ORM for SQLite object mapping and redis for caching",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "https://powerful-thicket-11106.herokuapp.com"
+		}
+	],
+	"paths": {
+		"/country/{countryName}": {
+			"get": {
+				"description": "get records from database where country is `countryName` and lies in between start year and end year and has category defined in the tags",
+				"parameters": [
+					{
+						"name": "countryName",
+						"in": "path",
+						"description": "countryName to run the search against",
+						"required": true,
+						"style": "simple",
+						"explode": false,
+						"schema": {
+							"type": "string",
+							"description": "country or area name with space can be case-insensitive",
+							"example": "United States of AMERICA"
+						}
+					},
+					{
+						"name": "start_year",
+						"in": "query",
+						"required": true,
+						"style": "form",
+						"explode": true,
+						"schema": {
+							"type": "number"
+						},
+						"example": 1990
+					},
+					{
+						"name": "end_year",
+						"in": "query",
+						"required": true,
+						"style": "form",
+						"explode": true,
+						"schema": {
+							"type": "number"
+						},
+						"example": 2014
+					},
+					{
+						"name": "tags",
+						"in": "query",
+						"required": false,
+						"style": "form",
+						"explode": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "co2,n2o,ghgs"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/inline_response_200"
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error when values are not present"
+					}
+				},
+				"servers": [
+					{
+						"url": "https://powerful-thicket-11106.herokuapp.com"
+					}
+				]
+			},
+			"servers": [
+				{
+					"url": "https://powerful-thicket-11106.herokuapp.com"
+				}
+			]
+		},
+		"/countries": {
+			"get": {
+				"description": "fetch all the group by category and country",
+				"responses": {
+					"200": {
+						"description": "OK,",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/inline_response_200_1"
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server error"
+					}
+				},
+				"servers": [
+					{
+						"url": "https://powerful-thicket-11106.herokuapp.com"
+					}
+				]
+			},
+			"servers": [
+				{
+					"url": "https://powerful-thicket-11106.herokuapp.com"
+				}
+			]
+		},
+		"/": {
+			"get": {
+				"description": "Main page to confirm app is running :)",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"text/html; charset=utf-8": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {}
+							}
+						}
+					}
+				},
+				"servers": [
+					{
+						"url": "https://powerful-thicket-11106.herokuapp.com"
+					}
+				]
+			},
+			"servers": [
+				{
+					"url": "https://powerful-thicket-11106.herokuapp.com"
+				}
+			]
+		}
+	},
+	"components": {
+		"schemas": {
+			"inline_response_200": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "uuid",
+						"example": "2c7d7eb0-b411-4d26-8ba0-9df0109b8a75"
+					},
+					"country_or_area": {
+						"type": "string",
+						"description": "country name",
+						"example": "United States of America"
+					},
+					"value": {
+						"type": "number",
+						"description": "double value of values",
+						"example": 398816.453543549
+					},
+					"category": {
+						"type": "string",
+						"description": "Category of dataset",
+						"example": "carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent"
+					},
+					"year": {
+						"type": "number",
+						"description": "year of the data collected",
+						"example": 2005
+					}
+				}
+			},
+			"inline_response_200_1": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "UUID od record",
+						"example": "2c7d7eb0-b411-4d26-8ba0-9df0109b8a75"
+					},
+					"country_or_area": {
+						"type": "string",
+						"description": "country or area name of record",
+						"example": "Australia"
+					},
+					"start_year": {
+						"type": "string",
+						"description": "start_year of data collection",
+						"example": "1990"
+					},
+					"end_year": {
+						"type": "string",
+						"description": "end_year of data colletion",
+						"example": "2014"
+					},
+					"category": {
+						"type": "string",
+						"description": "category",
+						"example": "methane_ch4_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent"
+					}
+				}
+			}
+		}
+	}
+}
