@@ -7,7 +7,7 @@ var {sanitize} = require("../middlewares/sanitize")
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-	res.render('index', {title: 'Express'});
+	res.render('index', {title: 'Kaggle Dataset '});
 });
 
 router.get("/countries", controllers.CountriesRouteHdl)

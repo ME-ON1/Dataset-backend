@@ -1,3 +1,5 @@
+// for making tag field in table
+// minimize lookup time in table when comparing
 exports.CTRY_MAP = {
 	"carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent": "co2",
 	"greenhouse_gas_ghgs_emissions_including_indirect_co2_without_lulucf_in_kilotonne_co2_equivalent": "ghgs-indirect-co2",

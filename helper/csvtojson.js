@@ -12,7 +12,8 @@ const writePromise = promisify(fs.watchFile)
 
 const error_arr = [null, undefined]
 
-// read csv and convert to json and write new json file
+// read csv and convert to json
+// return records to seed in table
 exports.to_Json = async (csv_url) => {
 	try {
 		const csv_data = await readPromise(csv_url, "utf8")
@@ -36,6 +37,8 @@ exports.to_Json = async (csv_url) => {
 				json_data.push(obj)
 			}
 		})
+		// clear first element
+		// which is column values
 		json_data.shift()
 		return json_data
 	} catch (err) {

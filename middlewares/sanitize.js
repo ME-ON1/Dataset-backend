@@ -1,5 +1,7 @@
 const {isYearValid, createValidTags, isParamValid, whichVarNotPresent} = require("../helper/checks")
 
+// for checking start_year, end_year and tags are valid
+// query in middlewares
 exports.sanitize = (req, res, next) => {
 	const {start_year, end_year, tags} = req.query
 	const {countryName} = req.params

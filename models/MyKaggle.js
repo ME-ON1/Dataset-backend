@@ -48,13 +48,6 @@ module.exports = (sequelize, DataTypes) => {
 	},
 		{
 			hooks: {
-				beforeBulkCreate: (datasets, options) => {
-					/*for (dataset of datasets) {
-					       console.log("sds")
-					       dataset.tag = CTRY_MAP[dataset.category]
-				       }*/
-					console.log("emitter before eent ")
-				}
 			},
 			sequelize,
 			modelName: 'MyKaggle',
