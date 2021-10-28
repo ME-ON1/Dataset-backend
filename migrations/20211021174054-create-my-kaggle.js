@@ -33,19 +33,9 @@ module.exports = {
 			},
 			tag: {
 				type: DataTypes.STRING,
-				allowNull: true// for creating hooks
+				allowNull: true
 			},
-		},
-			{
-				hooks: {
-					beforeBulkCreate: (datasets, options) => {
-						//for (dataset of datasets) {
-						//dataset.tag = CTRY_MAP[dataset.category]
-						//}
-						console.log("emitted before")
-					}
-				},
-			}
+		}
 		)
 	},
 	down: async (queryInterface, Sequelize) => {

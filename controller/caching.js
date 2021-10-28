@@ -1,7 +1,8 @@
 const redis = require("redis")
 
 let redisHost, redisPort
-
+// for production make dotenv and fill REDIS_HOST, REDIS_PASSWORD and REDIS_PORT
+// with values
 if (process.env.NODE_ENV === 'production') {
 	redisHost = process.env.REDIS_HOST
 	redisPort = process.env.REDIS_PORT
